@@ -43,11 +43,11 @@ def process_bgpview_ip(ips,args):
     for ip in ips:
         print(f'[+] {ip}:')
         if args.asn:
-            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn}}\' | grep ASN | awk \'{{print $2}}\' | sed -e \'s/"//g\' -e \'s/,//g\' '
+            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn , ASname : .asn.name}}\' | grep ASN | awk \'{{print $2}}\' | sed -e \'s/"//g\' -e \'s/,//g\' '
         elif args.prefix:
-            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn}}\' | grep prefix | awk \'{{print $2}}\' | sed -e \'s/"//g\' -e \'s/,//g\' '
+            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn , ASname : .asn.name}}\' | grep prefix | awk \'{{print $2}}\' | sed -e \'s/"//g\' -e \'s/,//g\' '
         else:
-            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn}}\''
+            command = f'curl -s https://api.bgpview.io/ip/{ip} | jq -r \'.data.prefixes[] | {{prefix: .prefix, ASN: .asn.asn , ASname : .asn.name}}\''
         output = run_command(command)
         print(output)
 
